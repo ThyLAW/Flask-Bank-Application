@@ -1,0 +1,4 @@
+# Requirements
+
+You will need Flask to run this application. You will also need python and pip.
+Extract to your python virtual enviornment. Initiate flask. Then, initiate the .py application file.
