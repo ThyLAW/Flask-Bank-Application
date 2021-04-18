@@ -7,6 +7,8 @@ from flask_bootstrap import Bootstrap
 import sqlite3 as sql
 
 app = Flask(__name__)
+app.static_folder = 'static'
+
 
 @app.route("/")
 def default_page():
