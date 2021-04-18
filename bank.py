@@ -29,10 +29,22 @@ def main_page():
 @app.route("/about")
 def about_page():
     return render_template("about.html")
+
     
+@app.route('/sendtocreateaccount', methods=['GET', 'POST'])
+def sendtocreateaccount():
+    if request.method == 'POST':
+        return render_template('createaccount.html')
 
+@app.route('/sendtologinpage', methods=['GET', 'POST'])
+def sendtologinpage():
+    if request.method == 'POST':
+        return render_template('login.html')
 
-
+@app.route('/mainlink', methods=['GET', 'POST'])
+def sendtomain():
+    if request.method == 'POST':
+        return render_template('main.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
