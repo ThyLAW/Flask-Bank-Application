@@ -40,13 +40,13 @@ def about_page():
 #create database and then pass in id and id extract information from that id
 
 
-# def create_database():
-#     conn = sql.connect("bank.db")
-#     conn.execute("CREATE TABLE users (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, fname TEXT, lname TEXT, phonenumber INTEGER, email TEXT, balance INT)")
-#     conn.execute("CREATE TABLE transactions (transactionid INTEGER PRIMARY KEY AUTOINCREMENT, userid INTEGER, type TEXT, amount INTEGER, CONSTRAINT fk_users FOREIGN KEY (userid) REFERENCES users(userid))")
-#     conn.close()
+def create_database():
+    conn = sql.connect("bank.db")
+    conn.execute("CREATE TABLE users (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, fname TEXT, lname TEXT, phonenumber INTEGER, email TEXT, balance INT)")
+    conn.execute("CREATE TABLE transactions (transactionid INTEGER PRIMARY KEY AUTOINCREMENT, userid INTEGER, type TEXT, amount INTEGER, CONSTRAINT fk_users FOREIGN KEY (userid) REFERENCES users(userid))")
+    conn.close()
 
-# create_database()
+create_database()
 
 # def add_transaction():
 #     with sql.connect("bank.db") as con:
@@ -109,13 +109,29 @@ def createmain():
 
     con = sql.connect("bank.db")
     con.row_factory = sql.Row
-
     cur = con.cursor()
     cur.execute("SELECT * FROM users WHERE username=? AND password=?", [loginusername, loginpassword])
     testquery = cur.fetchone()
+    con.commit()
+
+    con = sql.connect("bank.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    query = cur.execute("SELECT userid FROM users WHERE username = ? ", [loginusername])
+
+    row = cur.fetchone()
+    session['userid'] = row[0]
+
+    con = sql.connect("bank.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("SELECT * FROM transactions WHERE userid = ?", [session['userid']])
+    rowstransactions2 = cur.fetchall()
+    rows3 = cur.fetchall()
+    con.commit()
     
     if testquery:
-        return render_template('main.html', row = testquery)
+        return render_template('main.html', row = testquery, rows3 = rowstransactions2)
     else:
         return redirect(url_for('login_page'))
         
@@ -131,7 +147,11 @@ def addtransaction():
   
     with sql.connect("bank.db") as con:
         cur = con.cursor()
-        cur.execute("INSERT INTO transactions (userid, type, amount) VALUES (1, ?, ?)" , [transactiontype, formamount])
+        cur.execute("INSERT INTO transactions (userid, type, amount) VALUES (?, ?, ?)" , [session['userid'], transactiontype, formamount])
+        if transactiontype == 'Deposit':
+            cur.execute("UPDATE users SET balance = (balance + ?) WHERE username = ?", [formamount, session['loginusername']])
+        elif transactiontype == 'Withdrawal':
+            cur.execute("UPDATE users SET balance = (balance - ?) WHERE username = ?", [formamount, session['loginusername']])
         con.commit()
     return redirect(url_for('createmain'))
     
