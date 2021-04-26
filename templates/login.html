@@ -51,6 +51,9 @@
         <h1>
             <b>Login to MyBank.com</b>
         </h1>
+
+        <!-- Sends information to login(), checks against database to see if exists.-->
+
     <form action="{{ url_for('login')}}" method = "POST">
       <div class="form-group">
         <label for="username">Username</label>
@@ -64,7 +67,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
-
+        <!-- Sends to create account.-->
       <div class="createaccountdiv">
       <form action="{{ url_for('createaccount_page') }}">
         <button type="submit" class="btn btn-dark align-right">Create Account</button>

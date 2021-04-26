@@ -16,6 +16,10 @@
         <h1>
             <b>Create an Account with MyBank.com</b>
         </h1>
+
+        <!-- Sends values from form to /addrec so that information can be added to database. Values must be
+        entered in order to create account.-->
+        
     <form action="{{ url_for('addrec')}}" method = "POST">
       <div class="form-group">
         <label for="username">Username</label>
