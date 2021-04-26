@@ -48,11 +48,11 @@ def about_page():
 
 # create_database()
 
-def add_transaction():
-    with sql.connect("bank.db") as con:
-            cur = con.cursor()
-            cur.execute("INSERT INTO transactions (userid, type, amount) VALUES (1, DEPOSIT, 1000)")
-    con.commit()
+# def add_transaction():
+#     with sql.connect("bank.db") as con:
+#             cur = con.cursor()
+#             cur.execute("INSERT INTO transactions (transactionid, userid, type, amount) VALUES (2, 1, DEPOSIT, 1000)")
+#     con.commit()
 
 @app.route("/testpage")
 def list_data():
@@ -61,9 +61,14 @@ def list_data():
 
     cur = con.cursor()
     cur.execute("SELECT * FROM users")
-
+    
     rows = cur.fetchall()
+    con.commit()
 
+    con = sql.connect("bank.db")
+    con.row_factory = sql.Row
+
+    cur = con.cursor()
     cur.execute("SELECT * FROM transactions")
     rowstransactions = cur.fetchall()
 
@@ -114,25 +119,21 @@ def createmain():
     else:
         return redirect(url_for('login_page'))
         
+@app.route('/addtransaction', methods=['POST', 'GET'])
+def addtransaction():
+    formamount = request.form['amount']
+    button = request.form['flexRadioDefault']
+    transactiontype = "Deposit"
+    if button == 'Deposit':
+        transactiontype = 'Deposit'
+    else:
+        transactiontype = 'Withdrawal'
+  
+    with sql.connect("bank.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO transactions (userid, type, amount) VALUES (1, ?, ?)" , [transactiontype, formamount])
+        con.commit()
+    return redirect(url_for('createmain'))
     
-    
-
-
-        
-# @app.route('/sendtocreateaccount', methods=['GET', 'POST'])
-# def sendtocreateaccount():
-#     if request.method == 'POST':
-#         return render_template('createaccount.html')
-
-# @app.route('/sendtologinpage', methods=['GET', 'POST'])
-# def sendtologinpage():
-#     if request.method == 'POST':
-#         return render_template('login.html')
-
-# @app.route('/mainlink', methods=['GET', 'POST'])
-# def sendtomain():
-#     if request.method == 'POST':
-#         return render_template('main.html')
-
 if __name__ == '__main__':
     app.run(debug=True)
