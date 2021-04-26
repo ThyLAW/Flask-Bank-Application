@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('main_page') }}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{ url_for('createmain') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('about_page') }}">About Us</a>
@@ -31,17 +31,20 @@
           <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{{ url_for('main_page') }}">MyBank.com <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{{ url_for('createmain') }}">MyBank.com <span class="sr-only">(current)</span></a>
                 </li>
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Sign Out?</button>
           </form>
+          <form action="{{ url_for('login_page') }}">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" class="btn btn-dark align-right">Sign Out</button>
+        </form>
         </div>
       </nav>
     <div class="container-fluid">
         <div class="row justify-content-center">
     <div class="col-5  bg-light" style="margin-top: 100px; margin-right: 25px; padding: 10px; border-radius: 10px;">
-        <h2>
-            <b>Hello {NAME}</b>
+        
+      <h2>
+            <b>Hello {{ row["fname"] }} </b>
         </h2>
        <p>
            Welcome to your MyBank.com transaction page. Here, you can 
@@ -49,13 +52,16 @@
            withdraw funds from your MyBank.com account. Be sure not to
            overdraft your account!
            <ul>
-           <li><b>Account Details:</b></li>
-           <li>Name: {FNAME} + {LNAME}</li>
-           <li>Username: {USERNAME}</li>
-           <li>UserID: {USERID} </li>
-           <li>Balance: {BALANCE} </li>
+           <b>Account Details:</b>
+           <li>Name: {{ row["fname"] }} {{ row["lname"] }}</li>
+           <li>Username: {{ row["username"] }}</li>
+           <li>UserID: {{ row["userid"] }} </li>
+           <li>Email Address: {{ row["email"] }}</li>
            </ul>
        </p>
+       <h3>
+       Balance: {{ row["balance"] }}
+      </h3>
   </div>
   <div class="col-5  bg-light" style="margin-top: 100px; margin-left: 25px; padding: 10px; border-radius: 10px;">
     <h2>
@@ -68,13 +74,13 @@
             <input type="int" class="form-control" id="amount" name="flexRadioDefault" placeholder="Amount">
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Withdrawal">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Withdrawal" value="Withdrawal">
             <label class="form-check-label" for="Withdrawal" id="withdrawal">
               Withdrawal
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Deposit" checked>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Deposit" value="Deposit" checked>
             <label class="form-check-label" for="Deposit" id="deposit">
               Deposit
             </label>
