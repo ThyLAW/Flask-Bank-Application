@@ -42,11 +42,17 @@ def about_page():
 
 # def create_database():
 #     conn = sql.connect("bank.db")
-#     conn.execute("CREATE TABLE users (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, fname TEXT, lname TEXT, phonenumber INT, email TEXT, balance INT)")
-#     conn.execute("CREATE TABLE transactions (transactionid INT, userid INT, type TEXT, amount TEXT)")
+#     conn.execute("CREATE TABLE users (userid INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, fname TEXT, lname TEXT, phonenumber INTEGER, email TEXT, balance INT)")
+#     conn.execute("CREATE TABLE transactions (transactionid INTEGER PRIMARY KEY AUTOINCREMENT, userid INTEGER, type TEXT, amount INTEGER, CONSTRAINT fk_users FOREIGN KEY (userid) REFERENCES users(userid))")
 #     conn.close()
 
 # create_database()
+
+def add_transaction():
+    with sql.connect("bank.db") as con:
+            cur = con.cursor()
+            cur.execute("INSERT INTO transactions (userid, type, amount) VALUES (1, DEPOSIT, 1000)")
+    con.commit()
 
 @app.route("/testpage")
 def list_data():
@@ -57,7 +63,12 @@ def list_data():
     cur.execute("SELECT * FROM users")
 
     rows = cur.fetchall()
-    return render_template("testpage.html", rows = rows)
+
+    cur.execute("SELECT * FROM transactions")
+    rowstransactions = cur.fetchall()
+
+    rows2 = cur.fetchall()
+    return render_template("testpage.html", rows = rows, rows2 = rowstransactions)
 
 @app.route("/addrec", methods=["POST"])
 def addrec():
