@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>MyBank.com</title>
+</head>
+
+<body>
+
+  <div class="bg-image"
+    style="background-image: url('https://cdn.hipwallpaper.com/i/21/80/7kKAgd.jpg'); height: 100vh; resize: both; overflow: scroll; ">
+
+  <!-- Creates the nav bar with links to other pages.-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Welcome!</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('createmain') }}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about_page') }}">About Us</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('createmain') }}">MyBank.com <span
+                  class="sr-only">(current)</span></a>
+            </li>
+        </form>
+        <form action="{{ url_for('login_page') }}">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" class="btn btn-dark align-right">Sign
+            Out</button>
+        </form>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-5  bg-light" style="margin-top: 100px; margin-right: 25px; padding: 10px; border-radius: 10px;">
+          
+          
+          <!-- Inputs database values from /mainpage -->
+
+          <h2>
+            <b>Hello {{ row["fname"] }} </b>
+          </h2>
+          <p>
+            Welcome to your MyBank.com transaction page. Here, you can
+            deposit funds into your MyBank.com account as well as
+            withdraw funds from your MyBank.com account. Be sure not to
+            overdraft your account!
+          <ul>
+            <b>Account Details:</b>
+            <li>Name: {{ row["fname"] }} {{ row["lname"] }}</li>
+            <li>Username: {{ row["username"] }}</li>
+            <li>UserID: {{ row["userid"] }} </li>
+            <li>Email Address: {{ row["email"] }}</li>
+          </ul>
+          </p>
+          <h3>
+            Balance: {{ row["balance"] }}
+          </h3>
+        </div>
+        <div class="col-5  bg-light" style="margin-top: 100px; margin-left: 25px; padding: 10px; border-radius: 10px;">
+          <h2>
+            <b>Transact</b>
+          </h2>
+
+          <!-- Form that sends amount information, as well as what selected radio button for deposit
+          or withdrawal. -->
+
+
+          <form action="{{ url_for('addtransaction')}}" method="POST">
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" required="true">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="Withdrawal" value="Withdrawal">
+              <label class="form-check-label" for="Withdrawal" id="withdrawal">
+                Withdrawal
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="Deposit" value="Deposit" checked>
+              <label class="form-check-label" for="Deposit" id="deposit">
+                Deposit
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Creates a list of transactions for the user.-->
+
+
+    <div class="container-fluid col-md-6 mb-4 text-light" style="margin-top: 50px;">
+      <h1>
+        <b>User Transactions</b>
+      </h1>
+      <table class="table table-hover table-borderless jumbotron">
+        <thead class="thead bg-light">
+          <tr>
+            <th scope="col">transactionid</td>
+            <th scope="col">type</td>
+            <th scope="col">amount</td>
+          </tr>
+        </thead>
+        {% for row in rows3 %}
+        <tbody>
+          <tr>
+            <td>{{ row["transactionid"] }}</td>
+            <td>{{ row["type"] }}</td>
+            <td>{{ row["amount"] }}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"></script>
+
+</body>
+
+</html>
