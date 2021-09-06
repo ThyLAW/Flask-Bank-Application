@@ -22,16 +22,16 @@ Extract to your folder and activate the python virtual environment. Utilize Flas
 ## Models
 
 #### DFD
-![mainscreen](./Models+Images/Screenshots/0dfd.JPG)
+![mainscreen](./Models+Images/Screenshots/0dfd.JPG =250x250)
 
 #### flow chart
-![DFD](./Models+Images/Screenshots/dataflow.jpg)
+![DFD](./Models+Images/Screenshots/dataflow.jpg =250x250)
 
 #### Functional Decomposition
-![FD](./Models+Images/Screenshots/fdd.JPG)
+![FD](./Models+Images/Screenshots/fdd.JPG =250x250)
 
 #### Entity Relationship
-![entity](./Models+Images/Screenshots/entityrelationship.JPG)
+![entity](./Models+Images/Screenshots/entityrelationship.JPG =250x250)
 
 
 
