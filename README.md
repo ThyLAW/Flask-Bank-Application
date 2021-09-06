@@ -25,7 +25,7 @@ Extract to your folder and activate the python virtual environment. Utilize Flas
 ![mainscreen](./Models+Images/Screenshots/0dfd.JPG)
 
 #### flow chart
-![DFD](./Models+Images/Screenshots/dataflow.JPG)
+![DFD](./Models+Images/Screenshots/dataflow.jpg)
 
 #### Functional Decomposition
 ![FD](./Models+Images/Screenshots/fdd.JPG)
