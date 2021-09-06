@@ -1,7 +1,7 @@
 # Flask Bank Prototype
 Final project for Systems Analysis Class: a Flask application prototyping a bank website.
 
-![mainscreen](./Models+Images/screenshots/mainscreen.PNG)
+![mainscreen](./Models+Images/Screenshots/mainscreen.PNG)
 
 ## About 
 This is a prototype application that represents a bank. Some features are a login system, a create account system, an active session system, a deposit and withdraw system, and more. The UI is created utilizing bootstrap. 
