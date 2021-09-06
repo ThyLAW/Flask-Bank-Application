@@ -19,6 +19,19 @@ Flask, Pip, Python
 ### How to Use
 Extract to your folder and activate the python virtual environment. Utilize Flask to start the .py application. 
 
-## M
+## Models
+
+#### DFD
+![mainscreen](./Models+Images/Screenshots/0dfd.JPG)
+
+#### flow chart
+![DFD](./Models+Images/Screenshots/dataflow.JPG)
+
+#### Functional Decomposition
+![FD](./Models+Images/Screenshots/fdd.JPG)
+
+#### Entity Relationship
+![entity](./Models+Images/Screenshots/entityrelationship.JPG)
+
 
 
