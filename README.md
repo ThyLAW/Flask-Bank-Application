@@ -17,7 +17,7 @@ A flask application that allows for the creation of accounts, a login system to 
 Flask, Pip, Python
 
 ### How to Use
-Extract to your folder and activate the python virtual environment. Utilize Flask to start the .py application. 
+Extract to your folder and activate the python virtual environment. Utilize Flask to start the .py application. Enjoy!
 
 ## Models
 
